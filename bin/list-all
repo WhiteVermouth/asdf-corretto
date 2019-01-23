@@ -3,4 +3,5 @@
 echo $(echo "
 oracle-8.202
 oracle-11.0.2
+openjdk-11.0.2
 ")
