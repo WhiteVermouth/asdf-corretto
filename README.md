@@ -16,13 +16,13 @@ asdf plugin-add java
 and install new versions like this:
 
 ```bash
-asdf install java openjdk-11.0.1
+asdf install java openjdk-11.0.2
 ```
 
 and switch versions like this:
 
 ```bash
-asdf global java openjdk-11.0.1
+asdf global java openjdk-11.0.2
 ```
 
 If you want or need `JAVA_HOME` set you can load our `asdf` wrapper to your shell initialization (in `.bashrc`, for example):
