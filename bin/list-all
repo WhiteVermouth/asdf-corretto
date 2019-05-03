@@ -1,7 +1,6 @@
 #!/bin/env bash
 
 echo $(echo "
-oracle-8.202
-openjdk-11.0.2
-openjdk-12
+corretto-8.202
+corretto-11.0.3
 ")

@@ -54,14 +54,7 @@ get_variant() {
 			case "$(uname -m)" in
 				x86_64)
 					case $distro in
-						oracle) echo linux-x64.tar.gz ;;
-						openjdk) echo linux-x64_bin.tar.gz ;;
-						*) ;;
-					esac ;;
-				i[[3-9]]86)
-					case $distro in
-						oracle) echo linux-i586.tar.gz ;;
-						openjdk) echo linux-i586_bin.tar.gz ;;
+						corretto) echo linux-x64.tar.gz ;;
 						*) ;;
 					esac ;;
 				*) ASDF_JAVA_ERROR="$(uname -m) is not supported on linux" ;;
@@ -70,8 +63,7 @@ get_variant() {
 			case "$(uname -m)" in
 				x86_64)
 					case $distro in
-						oracle) echo macosx-x64.dmg ;;
-						openjdk) echo osx-x64_bin.tar.gz ;;
+						corretto) echo macosx-x64.tar.gz ;;
 						*) ;;
 					esac ;;
 				*) ASDF_JAVA_ERROR="$(uname -m) is not supported on MacOS" ;;
@@ -80,25 +72,10 @@ get_variant() {
 	esac
 }
 
-get_current_variant() {
-	local variant=$1
-
-	if [[ "$variant" == *"mac"* ]]; then
-		variant=$(echo $variant | sed -e 's|mac||')
-	fi
-
-	if [[ "$variant" == *"tar"* ]]; then
-		echo $variant | sed -e 's|.tar|_bin.tar|'
-	elif [[ "$variant" == *"dmg"* ]]; then
-		echo $variant | sed -e 's|.dmg|_bin.dmg|'
-	fi
-}
-
 get_base_url() {
 	local distro=$1
 	case $distro in
-		oracle) echo "http://download.oracle.com/otn-pub/java/jdk/" ;;
-		openjdk) echo "https://download.java.net/java/GA/jdk" ;;
+		corretto) echo "https://d3pxv6yz143wms.cloudfront.net/" ;;
 		*) ;;
 	esac
 }
@@ -111,13 +88,12 @@ get_java() {
 	local destdir=$4
 
 	local base=$(get_base_url $distro)
-	local oracle8_version=$(echo $version | sed -e 's|\.|u|g')
 
 	case $distro-$version in
-		oracle-8.202)  url=$base$oracle8_version-b08/1961070e4c9b4e26a04e7f5a083f551e/jdk-$oracle8_version-$variant ;;
-		openjdk-11.0.2) url=${base}11/9/GPL/openjdk-11.0.2_$variant ;;
-		openjdk-12) url=${base}12/GPL/openjdk-12_$variant ;;
-
+		# https://d3pxv6yz143wms.cloudfront.net/8.212.04.2/amazon-corretto-8.212.04.2-macosx-x64.tar.gz
+		corretto-8.202) url=${base}8.212.04.2/amazon-${version}.04.2-${variant} ;;
+		# https://d3pxv6yz143wms.cloudfront.net/11.0.3.7.1/amazon-corretto-11.0.3.7.1-macosx-x64.tar.gz
+		corretto-11.0.3) url=${base}11.0.3.7.1/amazon-${version}.7.1-${variant} ;;
 		*) ASDF_JAVA_ERROR="$version is not a supported version" ;;
 	esac
 	[[ -z "$ASDF_JAVA_ERROR" ]] || return
