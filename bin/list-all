@@ -1,6 +1,6 @@
 #!/bin/env bash
 
 echo $(echo "
-corretto-8.202
+corretto-8.212
 corretto-11.0.3
 ")

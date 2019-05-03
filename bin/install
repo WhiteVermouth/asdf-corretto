@@ -91,9 +91,9 @@ get_java() {
 
 	case $distro-$version in
 		# https://d3pxv6yz143wms.cloudfront.net/8.212.04.2/amazon-corretto-8.212.04.2-macosx-x64.tar.gz
-		corretto-8.202) url=${base}8.212.04.2/amazon-${version}.04.2-${variant} ;;
+		corretto-8.212) url=${base}8.212.04.2/amazon-${distro}-${version}.04.2-${variant} ;;
 		# https://d3pxv6yz143wms.cloudfront.net/11.0.3.7.1/amazon-corretto-11.0.3.7.1-macosx-x64.tar.gz
-		corretto-11.0.3) url=${base}11.0.3.7.1/amazon-${version}.7.1-${variant} ;;
+		corretto-11.0.3) url=${base}11.0.3.7.1/amazon-${distro}-${version}.7.1-${variant} ;;
 		*) ASDF_JAVA_ERROR="$version is not a supported version" ;;
 	esac
 	[[ -z "$ASDF_JAVA_ERROR" ]] || return
@@ -145,7 +145,7 @@ unpack_tar() {
 		else
 			mv $pkg/* .
 		fi
-		rmdir $pkg
+		rm -rf $pkg
 	}; cd $origin
 }
 
