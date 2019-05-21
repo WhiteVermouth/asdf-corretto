@@ -2,7 +2,7 @@
 
 [![travis ci](https://travis-ci.org/skotchpine/asdf-java.svg?branch=master)](https://travis-ci.org/skotchpine/asdf-java)
 
-[Amazon Corretto Java](https://www.java.com/en/) plugin for the [asdf](https://github.com/asdf-vm/asdf) version manager.
+[Amazon Corretto Java](https://aws.amazon.com/corretto/) plugin for the [asdf](https://github.com/asdf-vm/asdf) version manager.
 
 ## Install
 
