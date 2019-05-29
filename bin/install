@@ -79,9 +79,9 @@ get_variant() {
 get_base_url() {
 	local distro=$1
 	case $distro in
-		adoptopenjdk) echo "https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/" ;;
+		adoptopenjdk) echo "https://github.com/AdoptOpenJDK/" ;;
 		corretto) echo "https://d3pxv6yz143wms.cloudfront.net/" ;;
-		zulu) echo "https://cdn.azul.com/zulu/bin" ;;
+		zulu) echo "https://cdn.azul.com/zulu/bin/" ;;
 		*) ;;
 	esac
 }
@@ -96,12 +96,12 @@ get_java() {
 	local base=$(get_base_url $distro)
 
 	case $distro-$version in
-		adoptopenjdk-8.212) url=${base}jdk8u212-b03/OpenJDK8U-jdk_x64_$(echo ${variant} | sed -e "s/\${version}/8u212b03/") ;;
-		adoptopenjdk-11.0.3) url=${base}jdk-11.0.3+7/OpenJDK11U-jdk_x64_$(echo ${variant} | sed -e "s/\${version}/11.0.3_7/") ;;
+		adoptopenjdk-8.212) url=${base}openjdk8-binaries/releases/download/jdk8u212-b03/OpenJDK8U-jdk_x64_$(echo ${variant} | sed -e "s/\${version}/8u212b03/") ;;
+		adoptopenjdk-11.0.3) url=${base}openjdk11-binaries/releases/download/jdk-11.0.3+7/OpenJDK11U-jdk_x64_$(echo ${variant} | sed -e "s/\${version}/11.0.3_7/") ;;
 		corretto-8.212) url=${base}8.212.04.2/amazon-${distro}-${version}.04.2-${variant} ;;
 		corretto-11.0.3) url=${base}11.0.3.7.1/amazon-${distro}-${version}.7.1-${variant} ;;
-		zulu-8.212) url=${base}/zulu8.38.0.13-ca-jdk8.0.212-${variant} ;;
-    zulu-11.0.3)  url=${base}/zulu11.31.11-ca-jdk11.0.3-${variant} ;;
+		zulu-8.212) url=${base}zulu8.38.0.13-ca-jdk8.0.212-${variant} ;;
+    zulu-11.0.3)  url=${base}zulu11.31.11-ca-jdk11.0.3-${variant} ;;
 		*) ASDF_JAVA_ERROR="$version is not a supported version" ;;
 	esac
 	[[ -z "$ASDF_JAVA_ERROR" ]] || return
