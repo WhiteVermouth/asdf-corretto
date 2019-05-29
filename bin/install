@@ -56,6 +56,7 @@ get_variant() {
 					case $distro in
 						adoptopenjdk) echo 'linux_hotspot_${version}.tar.gz' ;;
 						corretto) echo 'linux-x64.tar.gz' ;;
+						zulu) echo 'linux_x64.tar.gz' ;;
 						*) ;;
 					esac ;;
 				*) ASDF_JAVA_ERROR="$(uname -m) is not supported on Linux" ;;
@@ -66,6 +67,7 @@ get_variant() {
 					case $distro in
 						adoptopenjdk) echo 'mac_hotspot_${version}.tar.gz' ;;
 						corretto) echo 'macosx-x64.tar.gz' ;;
+						zulu) echo 'macosx_x64.tar.gz' ;;
 						*) ;;
 					esac ;;
 				*) ASDF_JAVA_ERROR="$(uname -m) is not supported on macOS" ;;
@@ -79,6 +81,7 @@ get_base_url() {
 	case $distro in
 		adoptopenjdk) echo "https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/" ;;
 		corretto) echo "https://d3pxv6yz143wms.cloudfront.net/" ;;
+		zulu) echo "https://cdn.azul.com/zulu/bin" ;;
 		*) ;;
 	esac
 }
@@ -97,6 +100,8 @@ get_java() {
 		adoptopenjdk-11.0.3) url=${base}jdk-11.0.3%2B7/OpenJDK11U-jdk_x64_$(echo ${variant} | sed -e "s/\${version}/11.0.3_7/") ;;
 		corretto-8.212) url=${base}8.212.04.2/amazon-${distro}-${version}.04.2-${variant} ;;
 		corretto-11.0.3) url=${base}11.0.3.7.1/amazon-${distro}-${version}.7.1-${variant} ;;
+		zulu-8.212) url=${base}/zulu8.38.0.13-ca-jdk8.0.212-${variant} ;;
+    zulu-11.0.3)  url=${base}/zulu11.31.11-ca-jdk11.0.3-${variant} ;;
 		*) ASDF_JAVA_ERROR="$version is not a supported version" ;;
 	esac
 	[[ -z "$ASDF_JAVA_ERROR" ]] || return
@@ -201,7 +206,7 @@ unpack_tar() {
 		[[ $? == 0 ]] || ASDF_JAVA_ERROR="expanding java dist"
 		rm $variant
 
-		local pkg=$(echo * | grep -E "adoptopenjdk|corretto")
+		local pkg=$(echo * | grep -E "jdk|corretto")
 		if [ -d $pkg/Contents/Home ]; then
 			mv $pkg/Contents/Home/* .
 		else
