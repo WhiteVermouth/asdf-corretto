@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.com/WhiteVermouth/asdf-java.svg?branch=master)](https://travis-ci.com/WhiteVermouth/asdf-java)
 
-[Amazon Corretto Java](https://aws.amazon.com/corretto/) plugin for the [asdf](https://github.com/asdf-vm/asdf) version manager.
+[Java](https://www.java.com/en/) plugin for the [asdf](https://github.com/asdf-vm/asdf) version manager.
 
 ## Install
 
@@ -10,7 +10,7 @@ After installing [asdf](https://github.com/asdf-vm/asdf),
 you can add this plugin like this:
 
 ```bash
-asdf plugin-add java https://github.com/WhiteVermouth/asdf-corretto.git
+asdf plugin-add java https://github.com/WhiteVermouth/asdf-java.git
 ```
 
 and install new versions like this:
