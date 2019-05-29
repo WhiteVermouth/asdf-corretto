@@ -54,8 +54,8 @@ get_variant() {
 			case "$(uname -m)" in
 				x86_64)
 					case $distro in
-						adoptopenjdk) echo linux_hotspot ;;
-						corretto) echo linux-x64.tar.gz ;;
+						adoptopenjdk) echo 'linux_hotspot_${version}.tar.gz' ;;
+						corretto) echo 'linux-x64.tar.gz' ;;
 						*) ;;
 					esac ;;
 				*) ASDF_JAVA_ERROR="$(uname -m) is not supported on Linux" ;;
@@ -64,8 +64,8 @@ get_variant() {
 			case "$(uname -m)" in
 				x86_64)
 					case $distro in
-						adoptopenjdk) echo mac_hotspot ;;
-						corretto) echo macosx-x64.tar.gz ;;
+						adoptopenjdk) echo 'mac_hotspot_${version}.tar.gz' ;;
+						corretto) echo 'macosx-x64.tar.gz' ;;
 						*) ;;
 					esac ;;
 				*) ASDF_JAVA_ERROR="$(uname -m) is not supported on macOS" ;;
@@ -93,8 +93,8 @@ get_java() {
 	local base=$(get_base_url $distro)
 
 	case $distro-$version in
-		adoptopenjdk-8.212) url=${base}jdk8u212-b03/OpenJDK8U-jdk_x64_${variant}_8u212b03.tar.gz;;
-		adoptopenjdk-11.0.3) url=${base}jdk-11.0.3%2B7/OpenJDK11U-jdk_x64_${variant}_11.0.3_7.tar.gz ;;
+		adoptopenjdk-8.212) url=${base}jdk8u212-b03/OpenJDK8U-jdk_x64_$(echo ${variant} | sed -e "s/\${version}/8u212b03/") ;;
+		adoptopenjdk-11.0.3) url=${base}jdk-11.0.3%2B7/OpenJDK11U-jdk_x64_$(echo ${variant} | sed -e "s/\${version}/11.0.3_7/") ;;
 		corretto-8.212) url=${base}8.212.04.2/amazon-${distro}-${version}.04.2-${variant} ;;
 		corretto-11.0.3) url=${base}11.0.3.7.1/amazon-${distro}-${version}.7.1-${variant} ;;
 		*) ASDF_JAVA_ERROR="$version is not a supported version" ;;
