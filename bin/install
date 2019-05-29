@@ -97,7 +97,7 @@ get_java() {
 
 	case $distro-$version in
 		adoptopenjdk-8.212) url=${base}jdk8u212-b03/OpenJDK8U-jdk_x64_$(echo ${variant} | sed -e "s/\${version}/8u212b03/") ;;
-		adoptopenjdk-11.0.3) url=${base}jdk-11.0.3%2B7/OpenJDK11U-jdk_x64_$(echo ${variant} | sed -e "s/\${version}/11.0.3_7/") ;;
+		adoptopenjdk-11.0.3) url=${base}jdk-11.0.3+7/OpenJDK11U-jdk_x64_$(echo ${variant} | sed -e "s/\${version}/11.0.3_7/") ;;
 		corretto-8.212) url=${base}8.212.04.2/amazon-${distro}-${version}.04.2-${variant} ;;
 		corretto-11.0.3) url=${base}11.0.3.7.1/amazon-${distro}-${version}.7.1-${variant} ;;
 		zulu-8.212) url=${base}/zulu8.38.0.13-ca-jdk8.0.212-${variant} ;;
