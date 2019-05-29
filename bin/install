@@ -54,21 +54,32 @@ get_variant() {
 			case "$(uname -m)" in
 				x86_64)
 					case $distro in
+						adoptopenjdk) echo linux_hotspot ;;
 						corretto) echo linux-x64.tar.gz ;;
 						*) ;;
 					esac ;;
-				*) ASDF_JAVA_ERROR="$(uname -m) is not supported on linux" ;;
+				*) ASDF_JAVA_ERROR="$(uname -m) is not supported on Linux" ;;
 			esac ;;
 		Darwin)
 			case "$(uname -m)" in
 				x86_64)
 					case $distro in
+						adoptopenjdk) echo mac_hotspot ;;
 						corretto) echo macosx-x64.tar.gz ;;
 						*) ;;
 					esac ;;
-				*) ASDF_JAVA_ERROR="$(uname -m) is not supported on MacOS" ;;
+				*) ASDF_JAVA_ERROR="$(uname -m) is not supported on macOS" ;;
 			esac ;;
 		*) ASDF_JAVA_ERROR="$(uname -s) is not supported" ;;
+	esac
+}
+
+get_base_url() {
+	local distro=$1
+	case $distro in
+		adoptopenjdk) echo "https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/" ;;
+		corretto) echo "https://d3pxv6yz143wms.cloudfront.net/" ;;
+		*) ;;
 	esac
 }
 
@@ -79,14 +90,13 @@ get_java() {
 	local variant=$3
 	local destdir=$4
 
-	local base="https://d3pxv6yz143wms.cloudfront.net/"
-	local corretto_version=${distro}-${version}
+	local base=$(get_base_url $distro)
 
 	case $distro-$version in
-		# https://d3pxv6yz143wms.cloudfront.net/8.212.04.2/amazon-corretto-8.212.04.2-macosx-x64.tar.gz
-		corretto-8.212) url=${base}8.212.04.2/amazon-${corretto_version}.04.2-${variant} ;;
-		# https://d3pxv6yz143wms.cloudfront.net/11.0.3.7.1/amazon-corretto-11.0.3.7.1-macosx-x64.tar.gz
-		corretto-11.0.3) url=${base}11.0.3.7.1/amazon-${corretto_version}.7.1-${variant} ;;
+		adoptopenjdk-8.212) url=${base}jdk8u212-b03/OpenJDK8U-jdk_x64_${variant}_8u212b03.tar.gz;;
+		adoptopenjdk-11.0.3) url=${base}jdk-11.0.3%2B7/OpenJDK11U-jdk_x64_${variant}_11.0.3_7.tar.gz ;;
+		corretto-8.212) url=${base}8.212.04.2/amazon-${distro}-${version}.04.2-${variant} ;;
+		corretto-11.0.3) url=${base}11.0.3.7.1/amazon-${distro}-${version}.7.1-${variant} ;;
 		*) ASDF_JAVA_ERROR="$version is not a supported version" ;;
 	esac
 	[[ -z "$ASDF_JAVA_ERROR" ]] || return
@@ -114,6 +124,65 @@ unpack_java() {
 		*.dmg)    unpack_dmg $variant $destdir ;;
 		*) ASDF_JAVA_ERROR="$variant is not supported" ;;
 	esac
+}
+
+# Unarchive a tar archive into the install directory and cleanup.
+#
+# NOTE: Using $origin as a memo rather than executing in a subshell
+#   because errors won't be persisted from a subshell.
+#
+# TODO: Should be sanitized with error reporting.
+unpack_dmg() {
+	local variant=$1
+	local destdir=$2
+
+	local origin=$(pwd)
+	cd $destdir; {
+		local pkgdir=$destdir/asdf_tmp_pkgdir
+		local imgdir=$destdir/asdf_tmp_imgdir
+
+		mount_dmg $imgdir $variant
+		[[ -z "$ASDF_JAVA_ERROR" ]] || return
+
+		pkgutil --expand $imgdir/*.pkg $pkgdir
+		if [[ $? != 0 ]]; then
+			ASDF_JAVA_ERROR="expanding java dist"
+			unmount_dmg $imgdir
+			return
+		fi
+
+		cd $pkgdir/jdk*.pkg; {
+			cat Payload | gzip -d | cpio -i
+			if [[ $? != 0 ]] || ! [[ -d Contents ]]; then
+				ASDF_JAVA_ERROR="demangling dist payload"
+			fi
+			mv Contents/Home/* $destdir/
+		}; cd $destdir
+
+		unmount_dmg $imgdir
+		rm -r $destdir/$variant
+	}; cd $origin
+}
+
+mount_dmg() {
+	local dir=$1
+	local dev=$2
+
+	hdiutil mount -quiet -mountpoint $dir $dev
+	[[ $? == 0 ]] || ASDF_JAVA_ERROR="mounting java dist"
+}
+
+unmount_dmg() {
+	local dir=$1
+
+	hdiutil unmount -quiet $dir
+	if [[ $? != 0 ]]; then
+		[[ -z "$ASDF_JAVA_ERROR" ]] || \
+			ASDF_JAVA_ERROR="unmounting java dist"
+
+		log_warning "The java dist is still mounted at $dir."
+		log_warning " Use hdiutil unmount to unmount it."
+	fi
 }
 
 # Unarchive a tar archive into the install directory and cleanup.

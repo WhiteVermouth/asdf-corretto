@@ -1,6 +1,8 @@
 #!/bin/env bash
 
 echo $(echo "
+adoptopenjdk-8.212
+adoptopenjdk-11.0.3
 corretto-8.212
 corretto-11.0.3
 ")
