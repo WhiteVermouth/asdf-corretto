@@ -201,7 +201,7 @@ unpack_tar() {
 		[[ $? == 0 ]] || ASDF_JAVA_ERROR="expanding java dist"
 		rm $variant
 
-		local pkg=$(echo * | grep jdk)
+		local pkg=$(echo * | grep "jdk|corretto")
 		if [ -d $pkg/Contents/Home ]; then
 			mv $pkg/Contents/Home/* .
 		else
