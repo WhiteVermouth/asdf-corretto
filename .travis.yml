@@ -5,7 +5,9 @@ script:
   - asdf plugin-test java $TRAVIS_BUILD_DIR 'java -version' --asdf-tool-version 'corretto-8.222'
   - asdf plugin-test java $TRAVIS_BUILD_DIR 'java -version' --asdf-tool-version 'corretto-11.0.4'
   - asdf plugin-test java $TRAVIS_BUILD_DIR 'java -version' --asdf-tool-version 'zulu-8.212'
+  - asdf plugin-test java $TRAVIS_BUILD_DIR 'java -version' --asdf-tool-version 'zulu-8.222'
   - asdf plugin-test java $TRAVIS_BUILD_DIR 'java -version' --asdf-tool-version 'zulu-11.0.3'
+  - asdf plugin-test java $TRAVIS_BUILD_DIR 'java -version' --asdf-tool-version 'zulu-11.0.4'
 before_script:
   - git clone https://github.com/asdf-vm/asdf.git
   - . asdf/asdf.sh
