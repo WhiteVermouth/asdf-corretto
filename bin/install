@@ -109,7 +109,7 @@ get_java() {
 		zulu-8.232) url=${base}zulu8.42.0.23-ca-jdk8.0.232-${variant} ;;
     zulu-11.0.3)  url=${base}zulu11.31.11-ca-jdk11.0.3-${variant} ;;
 		zulu-11.0.4)  url=${base}zulu11.33.15-ca-jdk11.0.4-${variant} ;;
-		zulu-11.0.5)  url=${base}zulu11.33.15-ca-jdk11.0.5-${variant} ;;
+		zulu-11.0.5)  url=${base}zulu11.35.15-ca-jdk11.0.5-${variant} ;;
 		*) ASDF_JAVA_ERROR="$version is not a supported version" ;;
 	esac
 	[[ -z "$ASDF_JAVA_ERROR" ]] || return
