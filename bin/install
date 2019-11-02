@@ -101,11 +101,15 @@ get_java() {
 		adoptopenjdk-11.0.3) url=${base}openjdk11-binaries/releases/download/jdk-11.0.3+7/OpenJDK11U-jdk_x64_$(echo ${variant} | sed -e "s/\${version}/11.0.3_7/") ;;
 		adoptopenjdk-11.0.4) url=${base}openjdk11-binaries/releases/download/jdk-11.0.4%2B11.4/OpenJDK11U-jdk_x64_$(echo ${variant} | sed -e "s/\${version}/11.0.4_11/") ;;
 		corretto-8.222) url=${base}8.222.10.1/amazon-${distro}-${version}.10.1-${variant} ;;
+		corretto-8.232) url=${base}8.232.09.1/amazon-${distro}-${version}.09.1-${variant} ;;
 		corretto-11.0.4) url=${base}11.0.4.11.1/amazon-${distro}-${version}.11.1-${variant} ;;
+		corretto-11.0.5) url=${base}11.0.5.10.1/amazon-${distro}-${version}.10.1-${variant} ;;
 		zulu-8.212) url=${base}zulu8.38.0.13-ca-jdk8.0.212-${variant} ;;
 		zulu-8.222) url=${base}zulu8.40.0.25-ca-jdk8.0.222-${variant} ;;
+		zulu-8.232) url=${base}zulu8.42.0.23-ca-jdk8.0.232-${variant} ;;
     zulu-11.0.3)  url=${base}zulu11.31.11-ca-jdk11.0.3-${variant} ;;
 		zulu-11.0.4)  url=${base}zulu11.33.15-ca-jdk11.0.4-${variant} ;;
+		zulu-11.0.5)  url=${base}zulu11.33.15-ca-jdk11.0.5-${variant} ;;
 		*) ASDF_JAVA_ERROR="$version is not a supported version" ;;
 	esac
 	[[ -z "$ASDF_JAVA_ERROR" ]] || return

@@ -6,9 +6,13 @@ adoptopenjdk-8.222
 adoptopenjdk-11.0.3
 adoptopenjdk-11.0.4
 corretto-8.222
+corretto-8.232
 corretto-11.0.4
+corretto-11.0.5
 zulu-8.212
 zulu-8.222
+zulu-8.232
 zulu-11.0.3
 zulu-11.0.4
+zulu-11.0.5
 ")
