@@ -1,14 +1,14 @@
 language: c
-script:
-  - asdf plugin-test java $TRAVIS_BUILD_DIR 'java -version' --asdf-tool-version 'adoptopenjdk-8.212'
-  - asdf plugin-test java $TRAVIS_BUILD_DIR 'java -version' --asdf-tool-version 'adoptopenjdk-11.0.4'
-  - asdf plugin-test java $TRAVIS_BUILD_DIR 'java -version' --asdf-tool-version 'corretto-8.232'
-  - asdf plugin-test java $TRAVIS_BUILD_DIR 'java -version' --asdf-tool-version 'corretto-11.0.5'
-  - asdf plugin-test java $TRAVIS_BUILD_DIR 'java -version' --asdf-tool-version 'zulu-8.232'
-  - asdf plugin-test java $TRAVIS_BUILD_DIR 'java -version' --asdf-tool-version 'zulu-11.0.5'
 before_script:
   - git clone https://github.com/asdf-vm/asdf.git
   - . asdf/asdf.sh
 os:
   - linux
   - osx
+script:
+  - asdf plugin-test java $TRAVIS_BUILD_DIR 'java -version' --asdf-tool-version 'adoptopenjdk-8.232'
+  - asdf plugin-test java $TRAVIS_BUILD_DIR 'java -version' --asdf-tool-version 'corretto-8.232'
+  - asdf plugin-test java $TRAVIS_BUILD_DIR 'java -version' --asdf-tool-version 'zulu-8.232'
+  - asdf plugin-test java $TRAVIS_BUILD_DIR 'java -version' --asdf-tool-version 'adoptopenjdk-11.0.5'
+  - asdf plugin-test java $TRAVIS_BUILD_DIR 'java -version' --asdf-tool-version 'corretto-11.0.5'
+  - asdf plugin-test java $TRAVIS_BUILD_DIR 'java -version' --asdf-tool-version 'zulu-11.0.5'

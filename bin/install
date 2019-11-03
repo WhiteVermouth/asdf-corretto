@@ -98,8 +98,10 @@ get_java() {
 	case $distro-$version in
 		adoptopenjdk-8.212) url=${base}openjdk8-binaries/releases/download/jdk8u212-b03/OpenJDK8U-jdk_x64_$(echo ${variant} | sed -e "s/\${version}/8u212b03/") ;;
 		adoptopenjdk-8.222) url=${base}openjdk8-binaries/releases/download/jdk8u222-b10/OpenJDK8U-jdk_x64_$(echo ${variant} | sed -e "s/\${version}/8u222b10/") ;;
+		adoptopenjdk-8.232) url=${base}openjdk8-binaries/releases/download/jdk8u232-b09/OpenJDK8U-jdk_x64_$(echo ${variant} | sed -e "s/\${version}/8u232b09/") ;;
 		adoptopenjdk-11.0.3) url=${base}openjdk11-binaries/releases/download/jdk-11.0.3+7/OpenJDK11U-jdk_x64_$(echo ${variant} | sed -e "s/\${version}/11.0.3_7/") ;;
 		adoptopenjdk-11.0.4) url=${base}openjdk11-binaries/releases/download/jdk-11.0.4%2B11.4/OpenJDK11U-jdk_x64_$(echo ${variant} | sed -e "s/\${version}/11.0.4_11/") ;;
+		adoptopenjdk-11.0.5) url=${base}openjdk11-binaries/releases/download/jdk-11.0.5%2B10/OpenJDK11U-jdk_x64_$(echo ${variant} | sed -e "s/\${version}/11.0.5_10/") ;;
     corretto-8.212) url=${base}8.212.04.2/amazon-${distro}-${version}.04.2-${variant} ;;
 		corretto-8.222) url=${base}8.222.10.1/amazon-${distro}-${version}.10.1-${variant} ;;
 		corretto-8.232) url=${base}8.232.09.1/amazon-${distro}-${version}.09.1-${variant} ;;

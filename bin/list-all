@@ -3,8 +3,10 @@
 echo $(echo "
 adoptopenjdk-8.212
 adoptopenjdk-8.222
+adoptopenjdk-8.232
 adoptopenjdk-11.0.3
 adoptopenjdk-11.0.4
+adoptopenjdk-11.0.5
 corretto-8.212
 corretto-8.222
 corretto-8.232
