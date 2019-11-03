@@ -100,8 +100,10 @@ get_java() {
 		adoptopenjdk-8.222) url=${base}openjdk8-binaries/releases/download/jdk8u222-b10/OpenJDK8U-jdk_x64_$(echo ${variant} | sed -e "s/\${version}/8u222b10/") ;;
 		adoptopenjdk-11.0.3) url=${base}openjdk11-binaries/releases/download/jdk-11.0.3+7/OpenJDK11U-jdk_x64_$(echo ${variant} | sed -e "s/\${version}/11.0.3_7/") ;;
 		adoptopenjdk-11.0.4) url=${base}openjdk11-binaries/releases/download/jdk-11.0.4%2B11.4/OpenJDK11U-jdk_x64_$(echo ${variant} | sed -e "s/\${version}/11.0.4_11/") ;;
+    corretto-8.212) url=${base}8.212.04.2/amazon-${distro}-${version}.04.2-${variant} ;;
 		corretto-8.222) url=${base}8.222.10.1/amazon-${distro}-${version}.10.1-${variant} ;;
 		corretto-8.232) url=${base}8.232.09.1/amazon-${distro}-${version}.09.1-${variant} ;;
+		corretto-11.0.3) url=${base}11.0.3.7.1/amazon-${distro}-${version}.7.1-${variant} ;;
 		corretto-11.0.4) url=${base}11.0.4.11.1/amazon-${distro}-${version}.11.1-${variant} ;;
 		corretto-11.0.5) url=${base}11.0.5.10.1/amazon-${distro}-${version}.10.1-${variant} ;;
 		zulu-8.212) url=${base}zulu8.38.0.13-ca-jdk8.0.212-${variant} ;;
